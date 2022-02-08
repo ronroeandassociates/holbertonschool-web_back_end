@@ -1,4 +1,4 @@
-![Es6Header](images/ES6_classes.png)
+![Es6Header](./images/ES6_classes.png)
 
 # 0x02. ES6 classes
 
