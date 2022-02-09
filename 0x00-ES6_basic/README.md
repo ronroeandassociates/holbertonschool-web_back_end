@@ -1,9 +1,12 @@
+![Es6Header](../images/ES6_basics.png)
+
 # 0x00-ES6_basic
 
 ## Learning Objectives
 
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
+```
 - What ES6 is
 - New features introduced in ES6
 - The difference between a constant and a variable
@@ -13,3 +16,4 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 - String templating in ES6
 - Object creation and their properties in ES6
 - Iterators and for-of loops
+```
