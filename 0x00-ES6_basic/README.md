@@ -1,4 +1,4 @@
-![Es6Header](../images/ES6_basics.png)
+![Es6Header](https://github.com/ronroeandassociates/assets/raw/master/images/ES6_basics.png)
 
 # 0x00-ES6_basic
 
