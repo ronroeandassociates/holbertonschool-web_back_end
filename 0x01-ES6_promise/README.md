@@ -1,4 +1,4 @@
-![Es6Header](../images/ES6_promises.png)
+![Es6Header](https://github.com/ronroeandassociates/assets/raw/master/images/ES6_promises.png)
 
 # 0x01. ES6 Promises
 
