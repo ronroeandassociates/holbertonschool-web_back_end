@@ -1,4 +1,4 @@
-![WebBackEnd Banner](/images/hswb_banner.png)
+![WebBackEnd Banner](https://github.com/ronroeandassociates/assets/raw/master/images/hswb_banner.png)
 
 # holbertonschool-web_back_end
 
