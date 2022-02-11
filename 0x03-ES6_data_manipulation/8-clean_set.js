@@ -8,5 +8,5 @@ export default function cleanSet(set, startString) {
     }
     return nstrings.join('-');
   }
-  return newstring.join('-');
+  return nstring.join('-');
 }
