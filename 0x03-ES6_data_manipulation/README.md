@@ -1,4 +1,4 @@
-![0x03. ES6 data manipulation banner](https://github.com/ronroeandassociates/assets/blob/0369649c579849a58100926b6a93ede488359925/images/0x03_es6_data_manipulation.png)
+![0x03. ES6 data manipulation banner](https://github.com/ronroeandassociates/assets/blob/master/images/0x03_es6_data_manipulation.png)
 
 # 0x03. ES6 data manipulation
 
