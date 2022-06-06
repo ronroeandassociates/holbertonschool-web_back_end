@@ -1,4 +1,4 @@
-[0x02-python_async_comprehension_banner](https://github.com/ronroeandassociates/assets/blob/master/images/0x02-python_async_comprehension_banner.png)
+![0x02-python_async_comprehension_banner](https://github.com/ronroeandassociates/assets/blob/master/images/0x02-python_async_comprehension_banner.png)
 
 # 0x02. Python - Async Comprehension
 
