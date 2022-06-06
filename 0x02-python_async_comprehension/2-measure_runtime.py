@@ -25,8 +25,9 @@ async def measure_runtime() -> float:
     then yield a random number between 0 and 10
     Use the random module to generate a random number between 0 and 10
     """
-    start_time = time.time()
+    start: float = time.time()
     await asyncio.gather(
         *[async_comprehension() for _ in range(4)]
     )
-    return time.time() - start_time
+    end: float = time.time()
+    return end - start
