@@ -23,7 +23,6 @@ async def async_comprehension() -> List[float]:
     then yield a random number between 0 and 10
     Use the random module to generate a random number between 0 and 10
     """
-    max_delay = 10
     result = []
     async for i in async_generator():
         result.append(i)
