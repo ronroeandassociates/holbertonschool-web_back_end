@@ -19,22 +19,19 @@ Must return the value in self.cache_data linked to key.
 If key is None or if the key doesnt exist in self.cache_data, return None
 """
 from base_caching import BaseCaching
-from collections import OrderedDict
 
 
 class LRUCache(BaseCaching):
-    """
-    LRU caching system
+    """LRUCache class
+    Args:
+        BaseCaching (class): Basic class for this class
     """
     def __init__(self):
-        """
-        Initialize the cache
-        """
         super().__init__()
-        self.cache_data = OrderedDict()
+        self.__keys = []
 
     def put(self, key, item):
-        """put item into cache_data with LRU algorithm
+        """put item into cache_data with LIFO algorithm
         Args:
             key ([type]): key of dictionary
             item ([type]): item to insert in dictionary
@@ -48,3 +45,14 @@ class LRUCache(BaseCaching):
                 self.__keys.remove(key)
             self.__keys.append(key)
             self.cache_data[key] = item
+
+    def get(self, key):
+        """get value of cache_data dictionary
+        Args:
+            key ([type]): key to search into cache_data
+        """
+        if not key or key not in self.cache_data:
+            return None
+        self.__keys.remove(key)
+        self.__keys.append(key)
+        return self.cache_data[key]
