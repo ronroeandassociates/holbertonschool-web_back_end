@@ -31,28 +31,34 @@ class LIFOCache(BaseCaching):
     """
     def __init__(self):
         """
-        Initialize the cache
+        constructor
         """
         super().__init__()
-        self.cache_data = OrderedDict()
+        self.all_keys = []
 
     def put(self, key, item):
         """
-        Add an item in the cache
+        Must assign to the dictionary self.cache_data
+        the item value for the key key.
         """
-        if (key and item):
-            self.cache_data[key] = item
-            if len(self.cache_data) > self.MAX_ITEMS:
-                key, val = self.cache_data.popitem(last=False)
-                print("DISCARD: {}".format(key))
+
+        if key is None or item is None:
+            return
+
+        if len(self.cache_data) >= self.MAX_ITEMS:
+            to_discard = self.all_keys.pop()
+            print("DISCARD: {}".format(to_discard))
+            del self.cache_data[to_discard]
+
+        self.all_keys.append(key)
+        self.cache_data[key] = item
 
     def get(self, key):
         """
-        Get an item from the cache
+        Must return the value in self.cache_data linked to key
         """
-        if key is None:
+
+        if key is None or key not in self.cache_data:
             return None
-        if key in self.cache_data:
-            return self.cache_data[key]
-        else:
-            return None
+
+        return self.cache_data[key]
