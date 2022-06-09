@@ -21,37 +21,44 @@ If key is None or if the key doesnt exist in self.cache_data, return None
 """
 
 from base_caching import BaseCaching
-from collections import OrderedDict
 
 
 class MRUCache(BaseCaching):
+    """_summary_
+    MRUCache class
+
+    Args:
+        BaseCaching (_type_): _description_
     """
-    MRU caching system
-    """
+
     def __init__(self):
-        """
-        Initialize the cache
-        """
         super().__init__()
-        self.cache_data = OrderedDict()
+        self.__keys = []    # list of keys
 
     def put(self, key, item):
+        """_summary_
+        put item into cache_data with MRU algorithm (most recently used)
+        Args:
+            key (_type_): key of dictionary
+            item (_type_): item to insert in dictionary
         """
-        Add an item in the cache
-        """
-        if (key and item):
+        if len(self.cache_data) == self.MAX_ITEMS and key not in self.__keys:
+            discard = self.__keys.pop(0)
+            del self.cache_data[discard]
+            print('DISCARD: {}'.format(discard))    # print discard message
+        if key and item:
+            if key not in self.__keys:
+                self.__keys.append(key)
             self.cache_data[key] = item
-            if len(self.cache_data) > self.MAX_ITEMS:
-                key, val = self.cache_data.popitem(last=False)
-                print("DISCARD: {}".format(key))
 
     def get(self, key):
+        """_summary_
+        get value of cache_data dictionary
+        Args:
+            key (_type_): key to search into cache_data
         """
-        Get an item from the cache
-        """
-        if key is None:
+        if not key or key not in self.cache_data:
             return None
-        if key in self.cache_data:
-            return self.cache_data[key]
-        else:
-            return None
+        self.__keys.remove(key)
+        self.__keys.append(key)
+        return self.cache_data[key]
