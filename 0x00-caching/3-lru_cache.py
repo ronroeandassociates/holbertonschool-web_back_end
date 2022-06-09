@@ -39,7 +39,7 @@ class LRUCache(BaseCaching):
             key ([type]): key of dictionary
             item ([type]): item to insert in dictionary
         """
-        if len(self.cache_data) == self.MAX_ITEMS and key not in self.__keys:
+        if len(self.cache_data) == self.MAX_ITEMS and key not in self:
             discard = self.__keys.pop(0)
             del self.cache_data[discard]
             print('DISCARD: {}'.format(discard))
