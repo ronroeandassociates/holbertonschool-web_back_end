@@ -26,19 +26,20 @@ from collections import OrderedDict
 
 
 class FIFOCache(BaseCaching):
+    """FIFOCache class
+    Args:
+        BaseCaching (class): Basic class for this class
     """
-    FIFO caching system
-    """
+
     def __init__(self):
-        """
-        Initialize the cache
-        """
         super().__init__()
-        self.cache_data = OrderedDict()
+        self.__keys = []
 
     def put(self, key, item):
-        """
-        Add an item in the cache
+        """put item into cache_data with FIFO algorithm
+        Args:
+            key ([type]): key of dictionary
+            item ([type]): item to insert in dictionary
         """
         if len(self.cache_data) == self.MAX_ITEMS and key not in self.__keys:
             discard = self.__keys.pop(0)
