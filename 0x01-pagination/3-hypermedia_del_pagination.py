@@ -1,25 +1,11 @@
 #!/usr/bin/env python3
-from operator import index
-from typing import Dict, List
-#from typing_extensions import Self
-from mmap import PAGESIZE
-#from msilib.schema import SelfReg
-import csv
-import math
-import typing_extensions
-
-"""
-__SUMMARY__
-3 Deletion-resilient hypermedia pagination
-The goal here is that if between two queries,
-certain rows are removed from the dataset, the user
-does not miss items from dataset when changing page.
-
-Start 3-hypermedia_del_pagination.py with this code:
-"""
 """
 Deletion-resilient hypermedia pagination
 """
+
+import csv
+import math
+from typing import Dict, List
 
 
 class Server:
@@ -54,18 +40,14 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        pass
-        value = 0
-        assert value <= index <= len(Self.dataset())
-        indexedDataset = self.indexed_dataset()
-        indexedPage = dict()
-        dictionary = dict()
-        token = index
-        while (len(indexedPage) < PAGESIZE and token < len(SelfReg.dataset())):
-            if token in indexedDataset:
-                indexedPage[token] = self.dataset()[token]
-            token += 1
-        page = list(indexedPage.values())
-        indexedPage = list(indexedPage.keys())
-        return{'index': index, 'data': page, 'page_size': len(page),
-               'next_index': max(indexedPage) + 1}
+        '''returns a dictionary containing the following key-value pairs'''
+        assert (type(index) is int and index <= len(self.__indexed_dataset))
+        next = index + page_size
+        data = self.dataset()[index: next]
+        return {
+            'index': index,
+            'data': data,
+            'page_size': page_size,
+            'next_index': next if next <= len(self.__indexed_dataset)
+            else None,
+            }
