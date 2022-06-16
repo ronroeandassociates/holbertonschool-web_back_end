@@ -5,88 +5,57 @@ Write a function called filter_datum that returns the log message obfuscated:
 
 import re
 import logging
-from typing import list
-import mysql.connector
-from os import environ
+
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 """
-Log formatter
+1 Log formatter
 """
 
-
 class RedactingFormatter(logging.Formatter):
-    """Redacting Formatter class"""
+    """ Redacting Formatter class"""
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: List[str]):
-        """Initialize RedactingFormatter class"""
+    def __init__(self, fields: list):
+        ''' Initialize the formatter with the fields to redact'''
         super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = list(fields)
+        self.fields = fields
+
 
     def format(self, record: logging.LogRecord) -> str:
-        """Format log record"""
+        ''' Format the log message '''
         msg = super().format(record)
-        return filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR)
+        logList =  (filter_datum(self.fields, self.REDACTION, msg, self.SEPARATOR))
+        return logList.replace(";", "; ")
+        NotImplementedError
 
-
-def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:
-    """Filter using regex"""
-    for field in fields:
-        regexString = f"(?<={field}=).*?(?={separator})"
-        message = re.sub(regexString, redaction, message)
+def filter_datum(fields, redaction, message, separator):
+    """
+    fields: list of strings representing all fields to obfuscate
+    redaction: string representing by what the field will be obfuscated
+    message: string representing the log line
+    separator: string representing by which character is separating all
+    fields in the log line (message)
+    return: string representing the log line obfuscated
+    """
+    for fields in fields:
+        regex = fr"(?<={fields}=).*?(?={separator})"
+        message = re.sub(r'{}'.format(regex), redaction, message)
     return message
 
-
 def get_logger() -> logging.Logger:
-    """create logger"""
-    user_data = logging.getLogger("user_data")
+    """
+    2 Create logger
+    """
 
-    # set min to INFO
-    user_data.setLevel(logging.INFO)
-    user_data.propagate = False
-
-    # create handler and set format with our PII_FIELDS
-    streamHandler = logging.StreamHandler()
-    streamHandler.setFormatter(RedactingFormatter(PII_FIELDS))
-
-    # add handler to logger
-    user_data.addHandler(streamHandler)
-    return user_data
-
-
-def get_db() -> mysql.connector.connection.MySQLConnection:
-    """Gets and returns a database connection"""
-    db = mysql.connector.connect(
-        host=environ.get("PERSONAL_DATA_DB_HOST"),
-        user=environ.get("PERSONAL_DATA_DB_USERNAME"),
-        password=environ.get("PERSONAL_DATA_DB_PASSWORD"),
-        database=environ.get("PERSONAL_DATA_DB_NAME")
-    )
-    return db
-
-
-def main():
-    """Connects to db, gets info, and displays it"""
-    logger = get_logger()
-    db = get_db()
-
-    """ create cursor, execute queries in all rows"""
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM users;")
-
-    for row in cursor:
-        """ list of tuples"""
-        tupleList = row.items()
-        """ transform to list of strings with PII_FIELDS """
-        str = "; ".join(f"{tuple[0]}={tuple[1]}" for tuple in tupleList)
-        logger.info(str)
-
-    db.close()
-
-
-if __name__ == "__main__":
-    main()
+    logger = logging.getLogger('user_data')
+    logger.setLevel(logging.INFO)
+    formatter = RedactingFormatter(PII_FIELDS)
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter)
+    logger.propagate = False
+    logger.addHandler(handler)
+    return logger
