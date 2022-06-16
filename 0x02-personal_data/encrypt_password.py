@@ -6,7 +6,7 @@
 import bcrypt
 
 
-def _hash_password(password: str) -> str:
+def _hash_password(password: str) -> bytes:
     """
     Hash a password for storing in a database.
     """
