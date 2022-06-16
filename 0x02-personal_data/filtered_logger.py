@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-Write a function called filter_datum that returns the log message obfuscated:
-"""
+ PII_FIELDS - a list of fields to redact
+ REDACTION - a string to replace the PII_FIELDS with
+ """
 
+from typing import List
 import re
 import logging
 import os
-from typing import List
 import mysql.connector
 
 
-PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
+PII_FIELDS = ("phone", "ssn", "password", "email", "name")
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
@@ -30,49 +31,69 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 def get_logger() -> logging.Logger:
-    """
-    2 Create logger
-    """
-
-    logger = logging.getLogger('user_data')
-    logger.setLevel(logging.INFO)
+    """ Creates a logger with a StreamHandler"""
+    log_obj = logging.getLogger("user_data")
+    log_obj.setLevel(logging.INFO)
+    log_obj.propagate = False
     stream = logging.StreamHandler()
-    stream.setFormatter(RedactingFormatter(PII_FIELDS))
-    logger.addHandler(stream)
-    return logger
+    stream.setFormatter(RedactingFormatter(list(PII_FIELDS)))
+    log_obj.addHandler(stream)
+    return log_obj
 
 
-def filter_datum(fields: List[str], redaction: str, msg: str,
+def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
-    """
-    fields: list of strings representing all fields to obfuscate
-    redaction: string representing by what the field will be obfuscated
-    message: string representing the log line
-    separator: string representing by which character is separating all
-    fields in the log line (message)
-    return: string representing the log line obfuscated
-    """
-    for fields in fields:
-        pattern = r'(?<={}=).*?(?={})'.format(fields, separator)
+    """Task 0"""
+    for field in fields:
+        pattern = "(?<={}=).+?(?={})".format(field, separator)
         message = re.sub(pattern, redaction, message)
     return message
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class"""
+    """ Redacting Formatter class
+        """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: list):
-        ''' Initialize the formatter with the fields to redact'''
-        super(RedactingFormatter, self).__init__(self.FORMAT)
+    def __init__(self, fields: List[str]):
         self.fields = fields
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+
+    """def format(self, record: logging.LogRecord) -> str:
+        Formatter = logging.Formatter(self.FORMAT)
+        record = Formatter.format(record)
+        return filter_datum(self.fields, self.REDACTION, str(record).replace(
+            self.SEPARATOR, self.SEPARATOR + ' '), self.SEPARATOR)"""
 
     def format(self, record: logging.LogRecord) -> str:
-        ''' Format the log message '''
-        msg = super().format(record)
-        logList = (filter_datum(self.fields, self.REDACTION,
-                                msg, self.SEPARATOR))
-        return logList.replace(";", "; ")
+        """[summary]"""
+        Formatter = logging.Formatter(self.FORMAT)
+        record = Formatter.format(record)
+        return filter_datum(self.fields, self.REDACTION,
+                            str(record), self.SEPARATOR)
+
+
+if __name__ == '__main__':
+    def main():
+        """Summary"""
+        db_connector = get_db()
+        db_cursor = db_connector.cursor()
+        query = ("SELECT * FROM users")
+        db_cursor.execute(query)
+        fields = []
+
+        for item in db_cursor.description:
+            fields.append(str(item[0]))
+
+        for result in db_cursor:
+            string = ''
+            field_pos = 0
+            for item in result:
+                string = string + fields[field_pos] + '=' + str(item) + '; '
+                field_pos += 1
+            logger = get_logger()
+            logger.info(string)
+    main()
