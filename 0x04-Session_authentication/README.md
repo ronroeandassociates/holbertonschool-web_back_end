@@ -1,22 +1,22 @@
-![0x03-Basic_authentication](https://github.com/ronroeandassociates/assets/blob/master/images/0x03-Basic_authentication_banner.png)
+![0x04-Session_authentication_banner](https://github.com/ronroeandassociates/assets/blob/master/images/0x04-Session_authentication_banner.png)
 
-# 0x03. Basic authentication
+# 0x04. Session authentication
 
 ## Background Context
 
-In this project, you will learn what the authentication process means and implement a Basic Authentication on a simple API.
+n this project, you will implement a Session Authentication. You are not allowed to install any other module.
 
-In the industry, you should not implement your own Basic authentication system and use a module or framework that doing it for you (like in Python-Flask: Flask-HTTPAuth). Here, for the learning purpose, we will walk through each step of this mechanism to understand it by doing.
+In the industry, you should not implement your own Session authentication system and use a module or framework that doing it for you (like in Python-Flask: `Flask-HTTPAuth`). Here, for the learning purpose, we will walk through each step of this mechanism to understand it by doing.
 
 ## Learning Objectives
 
 At the end of this project, you are expected to be able to `explain to anyone`, **without the help of Google**:
 
 - What authentication means
-- What Base64 is
-- How to encode a string in Base64
-- What Basic authentication means
-- How to send the Authorization header
+- What session authentication means
+- What Cookies are
+- How to send Cookies
+- How to parse Cookies
 
 ## Simple API
 
