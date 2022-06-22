@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""view of Session authentication"""
-
-from api.v1.views import app_views
-from flask import abort, jsonify, request
+"""Module of session_id views
+"""
+from flask import request, jsonify, abort
 from models.user import User
 from os import getenv
+from api.v1.views import app_views
 
 
-@app_views.route("/auth_session/login/",
-                 methods=["POST"], strict_slashes=False)
+@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_id():
-    """loggin user id"""
+    """ POST /api/v1/auth_session/login
+    Return:
+      - loggin user id
+    """
     from api.v1.app import auth
     email = request.form.get('email')
     password = request.form.get('password')
