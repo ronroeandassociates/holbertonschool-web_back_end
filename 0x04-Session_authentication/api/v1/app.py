@@ -53,17 +53,19 @@ def before_request():
     """Filters requests to correct error handlers"""
     authList = ["/api/v1/status/",
                 "/api/v1/unauthorized",
-                "/api/v1/forbidden"]
+                "/api/v1/forbidden"
+                "/api/v1/auth_session/login/"]
 
-    if auth and auth.require_auth(request.path, authList):
-
-        if auth.authorization_header(request) is None:
+    if auth is not None:
+        if not auth.require_auth(request.path, authList):
+            return
+        if auth.authorization_header(request) is None \
+                and auth.session_cookie(request) is None:
             abort(401)
-
-        request.current_user = auth.current_user(request)
-
         if auth.current_user(request) is None:
             abort(403)
+        request.current_user = auth.current_user(request)
+    return
 
 
 if __name__ == "__main__":
