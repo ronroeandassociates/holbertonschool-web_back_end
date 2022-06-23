@@ -40,7 +40,7 @@ def session_id():
 @app_views.route('/auth_session/logout', methods=['DELETE'],
                  strict_slashes=False)
 def logout():
-    """Deletes session from cookie aka logs out"""
+    """Deletes session and logs out"""
     from api.v1.app import auth
     if (auth.destroy_session(request)):
         return (jsonify({}), 200)
