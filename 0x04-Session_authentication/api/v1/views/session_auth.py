@@ -9,7 +9,7 @@ from api.v1.auth.session_auth import SessionAuth
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def session_id():
+def login():
     """ POST /api/v1/auth_session/login
     Return:
       - loggin user id
