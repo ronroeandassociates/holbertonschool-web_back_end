@@ -46,10 +46,7 @@ def logout():
       - logout user id
     """
     from api.v1.app import auth
-    auth.destroy_session()
-    SESSION_NAME = getenv("SESSION_NAME")
-    response = make_response(jsonify({}), 200)
-    response.set_cookie(SESSION_NAME, "", expires=0)
-    return response
+    if (auth.destroy_session(request)):
+        return jsonify({}, 200)
 
     abort(404)
