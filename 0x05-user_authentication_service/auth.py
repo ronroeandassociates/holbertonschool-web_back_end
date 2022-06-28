@@ -2,5 +2,9 @@
 """
 User model and authentication service
 """
-from sqlalchemy import Column, String, Integer, ForeignKey, Boolean
-from sqlalchemy.ext.declarative import declarative_base
+from bcrypt import hashpw, gensalt
+
+
+def _hash_password(password: str) -> bytes:
+    """Hash a password"""
+    return hashpw(password.encode(), gensalt())
