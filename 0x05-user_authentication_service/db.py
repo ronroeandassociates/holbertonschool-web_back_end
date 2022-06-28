@@ -38,22 +38,17 @@ class DB:
     email and hashed_password"""
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """Add a new user to the database
-        """
+        """Add a new user to the DB"""
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
         return user
-    """
-    implement the DB.find_user_by method
-    """
 
     def find_user_by(self, **kwargs) -> User:
-        """Find a user by email or id
-        """
+        """Find a user by a given key-value pair"""
         try:
-            return self._session.query(User).filter_by(**kwargs).first()
-        except TypeError:
-            raise InvalidRequestError("Invalid request")
-        except None:
-            raise NoResultFound("No result found")
+            return self._session.query(User).filter_by(**kwargs).one()
+        except NoResultFound:
+            raise NoResultFound
+        except InvalidRequestError:
+            raise InvalidRequestError
