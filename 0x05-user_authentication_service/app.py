@@ -2,6 +2,8 @@
 from flask import Flask, request, jsonify, abort
 
 
+app = Flask(__name__)
+
 @app.route('/', methods=['GET'], strict_slashes=False)
 def status() -> str:
     """ GET /status
