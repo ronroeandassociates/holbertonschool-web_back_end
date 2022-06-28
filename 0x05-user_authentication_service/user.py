@@ -13,13 +13,7 @@ class User(Base):
     """
     create a SQLAlchemy model named User for a database table named users
 
-    Attributes:
-    id, the integer primary key
-    email, a non-nullable string
-    hashed_password, a non-nullable string
-    session_id, a nullable string
-    reset_token, a nullable string
-    """
+    The table should have the following columns"""
 
     __tablename__ = 'users'
 
