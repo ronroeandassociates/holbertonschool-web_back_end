@@ -12,7 +12,6 @@ class User(Base):
 
     """
     create a SQLAlchemy model named User for a database table named users
-
     The table should have the following columns"""
 
     __tablename__ = 'users'
