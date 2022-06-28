@@ -2,10 +2,13 @@
 
 """DB module
 """
+from curses.ascii import US
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.exc import NoResultFound
 
 from user import Base
 from user import User
@@ -33,18 +36,30 @@ class DB:
         return self.__session
 
     """
-    Note that DB._session is a private property
-    and hence should NEVER be used from outside the DB class
-
     Implement the add_user method, which has two required string arguments:
     email and hashed_password, and returns a User object
     The method should save the user to the database
-    No validations are required at this stage
     """
     def add_user(self, email, hashed_password: str) -> User:
         """Add a new user to the database
         """
-        user = User(email=email, hash_password=hashed_password)
+        user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
         return user
+    """
+    implement the DB.find_user_by method
+    """
+
+    def find_user_by(self, **kwargs) -> User:
+        """Find a user by email or id
+        """
+        if not kwargs:
+            raise InvalidRequestError
+        column_name = User.__table__.Column.keys()
+
+        for key in kwargs.keys():
+            if key not in column_name:
+                raise NoResultFound
+
+        return self._session.query(User).filter_by(**kwargs).first()
