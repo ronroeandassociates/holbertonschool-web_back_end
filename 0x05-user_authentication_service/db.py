@@ -54,12 +54,9 @@ class DB:
     def find_user_by(self, **kwargs) -> User:
         """Find a user by email or id
         """
-        if not kwargs:
+        try:
+            return self._session.query(User).filter_by(**kwargs).first()
+        except NoResultFound:
+            raise NoResultFound
+        except InvalidRequestError:
             raise InvalidRequestError
-        column_name = User.__table__.Column.keys()
-
-        for key in kwargs.keys():
-            if key not in column_name:
-                raise NoResultFound
-
-        return self._session.query(User).filter_by(**kwargs).first()
