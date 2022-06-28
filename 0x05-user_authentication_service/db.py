@@ -2,14 +2,12 @@
 
 """DB module
 """
-from curses.ascii import US
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.exc import NoResultFound
-
 from user import Base
 from user import User
 
