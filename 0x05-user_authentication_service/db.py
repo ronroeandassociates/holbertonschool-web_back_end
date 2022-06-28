@@ -7,9 +7,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import InvalidRequestError
-from sqlalchemy.orm.exc import NoResultFound
-from user import Base
-from user import User
+from sqlalchemy.exc import NoResultFound
+from user import Base, User
 
 
 class DB:
@@ -35,10 +34,9 @@ class DB:
 
     """
     Implement the add_user method, which has two required string arguments:
-    email and hashed_password, and returns a User object
-    The method should save the user to the database
-    """
-    def add_user(self, email, str, hashed_password: str) -> User:
+    email and hashed_password"""
+
+    def add_user(self, email: str, hashed_password: str) -> User:
         """Add a new user to the database
         """
         user = User(email=email, hashed_password=hashed_password)
