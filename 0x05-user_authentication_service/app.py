@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""app Module using Flask"""
 from flask import Flask, request, jsonify, abort, redirect
 from auth import Auth
 
@@ -38,7 +39,7 @@ def new_user() -> str:
 
 @app.route('/sessions', methods=['POST'])
 def login():
-    """Route for loggin in a user"""
+    """Route for login a user"""
     email = request.form.get('email')
     password = request.form.get('password')
 
@@ -54,13 +55,26 @@ def login():
 
 @app.route('/sessions', methods=['DELETE'])
 def logout():
-    """Route for logging out a user"""
+    """Route for log out a user"""
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
 
     if user and session_id:
         AUTH.destroy_session(session_id)
         return redirect('/')
+
+    else:
+        abort(403)
+
+
+@app.route('/profile', methods=['GET'])
+def profile():
+    """Route for profile of user"""
+    session_id = request.cookies.get('session_id')
+    user = AUTH.get_user_from_session_id(session_id)
+
+    if user and session_id:
+        return jsonify({'email': user.email}), 200
 
     else:
         abort(403)
