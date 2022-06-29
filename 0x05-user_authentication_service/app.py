@@ -36,8 +36,8 @@ def new_user() -> str:
             }), 400
 
 
-@app.route('/sessions', methods=['POST'], strict_slashes=False)
-def login() -> str:
+@app.route('/sessions', methods=['POST'])
+def login():
     """Create a new session"""
     email = request.form.get("email")
     password = request.form.get("password")
