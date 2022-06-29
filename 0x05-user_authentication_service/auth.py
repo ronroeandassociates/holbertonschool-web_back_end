@@ -27,14 +27,11 @@ class Auth:
             return user
 
     def valid_login(self, email: str, password: str) -> bool:
-        """Checks if a user is valid"""
+        """Validate a user login"""
         try:
             user = self._db.find_user_by(email=email)
-            password = password.encode('utf8')
-            return checkpw(
-              password, user.hashed_password.encode("utf-8")
-              )
-
+            passwrd = password.encode('utf-8')
+            return checkpw(passwrd, user.hashed_password)
         except Exception:
             return False
 
