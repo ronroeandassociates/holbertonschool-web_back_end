@@ -38,13 +38,12 @@ def new_user() -> str:
 
 @app.route('/sessions', methods=['POST'])
 def login():
-    """Create a new session"""
-    email = request.form.get("email")
-    password = request.form.get("password")
+    """Route for loggin in a user"""
+    email = request.form.get('email')
+    password = request.form.get('password')
 
-    if not(Auth.valid_login(
-        email=email, password=password)
-           ) or not email or not password:
+    if not (AUTH.valid_login(email=email, password=password)
+            ) or not email or not pw:
         abort(401)
 
     session_id = AUTH.create_session(email=email)
