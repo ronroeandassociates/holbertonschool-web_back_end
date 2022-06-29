@@ -36,6 +36,21 @@ class Auth:
         except Exception:
             return False
 
+    def create_session(self, email: str, password: str) -> bool:
+        """Create a new session for a user"""
+        try:
+            user = self._db.find_user_by(email=email)
+            passwrd = password.encode('utf-8')
+            if checkpw(passwrd, user.hashed_password):
+                session_id = str(uuid.uuid4())
+                user.session_id = session_id
+                self._db.update_user(user.id, session_id=session_id)
+                return session_id
+            else:
+                raise ValueError("Invalid password")
+        except Exception:
+            raise ValueError("Invalid email")
+
 
 def _hash_password(password: str) -> bytes:
     """Hash a password"""
