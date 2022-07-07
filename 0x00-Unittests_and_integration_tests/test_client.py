@@ -1,22 +1,25 @@
 #!/usr/bin/env python3
-"""Unit tests for Client"""
+"""
+Unit tests for Client
+"""
 
 
 import unittest
+import client
 from client import GithubOrgClient
 from parameterized import parameterized, parameterized_class
 from unittest import TestCase, mock
 from unittest.mock import patch, MagicMock, PropertyMock
 from urllib.error import HTTPError
-from fixtures import *
+from fixtures import TEST_PAYLOAD
 
 
-class TestGithubOrgClient(TestCase):
+class TestGithubOrgClient(unittest.TestCase):
     """Test for GithubOrgClient"""
 
     @parameterized.expand([
-        ("google"),
-        ("abc")
+        ("google", {"google": True}),
+        ("abc", {"abc": True}),
     ])
     @patch("client.get_json",
            MagicMock(return_value={'key': 'value'}))
