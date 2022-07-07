@@ -5,10 +5,8 @@ Unit tests for Client
 
 
 import unittest
-import client
 from client import GithubOrgClient
 from parameterized import parameterized, parameterized_class
-from unittest import TestCase, mock
 from unittest.mock import patch, MagicMock, PropertyMock
 from urllib.error import HTTPError
 from fixtures import TEST_PAYLOAD
@@ -29,7 +27,9 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(client.org, {'key': 'value'})
 
     def test_public_repos_url(self):
-        """Test public_repos_url method"""
+        """
+        Test public_repos_url method
+        """
         with patch("client.get_json",
                    new_callable=PropertyMock,
                    return_value={"repos_url": "url"}):
