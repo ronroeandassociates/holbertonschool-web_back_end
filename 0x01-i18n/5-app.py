@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """5. Mock logging in"""
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
 app = Flask(__name__)
@@ -46,7 +46,7 @@ def root():
 
 def get_user():
     """ get user from database """
-    user_id = request.args.get('user_id')
+    user_id = request.args.get('login_as')
     if user_id:
         return users[int(user_id)]
     else:
@@ -56,12 +56,7 @@ def get_user():
 @app.before_request
 def before_request():
     """ before request """
-    user = get_user()
-    if user:
-        if user['locale']:
-            babel.locale = user['locale']
-        if user['timezone']:
-            babel.timezone = user['timezone']
+    g.user = get_user()
 
 
 if __name__ == "__main__":
