@@ -27,36 +27,34 @@ app.config.from_object(Config)
 """ Use that class as config for Flask app """
 
 
-@babel.localeselector
-def get_locale():
-    """ to determine the best match with our supported languages """
-    locallang = request.args.get('locale')
-    supported_languages = app.config['LANGUAGES']
-    if locallang in supported_languages:
-        return locallang
-    else:
-        return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
-@app.route('/')
-def root():
-    """ basic Flask app """
-    return render_template("5-index.html")
-
-
 def get_user():
-    """ get user from database """
+    """Get user from request"""
     user_id = request.args.get('login_as')
-    if user_id:
-        return users[int(user_id)]
-    else:
+    try:
+        return users.get(int(user_id))
+    except Exception:
         return None
 
 
 @app.before_request
 def before_request():
-    """ before request """
+    """Before request"""
     g.user = get_user()
+
+
+@babel.localeselector
+def get_locale():
+    """Locale selector"""
+    locale = request.args.get('locale')
+    if locale and locale in app.config['LANGUAGES']:
+        return locale
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+
+
+@app.route('/', methods=['GET'], strict_slashes=False)
+def index():
+    """Index page"""
+    return render_template('5-index.html')
 
 
 if __name__ == "__main__":
