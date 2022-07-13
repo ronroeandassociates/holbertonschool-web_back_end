@@ -29,9 +29,17 @@ app.config.from_object(Config)
 
 def get_user():
     """Get user from request"""
-    user_id = request.args.get('login_as')
+    if request.args.get('login_as')
+    user_id = int(request.args.get('login_as'))
+        if user in users
+            return user.get(user_id)
+        else:
+            return None
+
+
+@babel.localeselector
     try:
-        return users.get(int(user_id))
+        return users.get(int(user))
     except Exception:
         return None
 
