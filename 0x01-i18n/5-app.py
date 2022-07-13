@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """5. Mock logging in"""
 
 from flask import Flask, render_template, request, g
@@ -29,17 +28,9 @@ app.config.from_object(Config)
 
 def get_user():
     """Get user from request"""
-    if request.args.get('login_as')
-    user_id = int(request.args.get('login_as'))
-        if user in users
-            return user.get(user_id)
-        else:
-            return None
-
-
-@babel.localeselector
+    user_id = request.args.get('login_as')
     try:
-        return users.get(int(user))
+        return users.get(int(user_id))
     except Exception:
         return None
 
