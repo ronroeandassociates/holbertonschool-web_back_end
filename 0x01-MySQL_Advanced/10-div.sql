@@ -15,6 +15,4 @@ BEGIN
 	END IF;
 END //
 
-DELIMITER ;
-
 --end of script
