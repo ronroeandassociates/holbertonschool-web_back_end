@@ -32,7 +32,7 @@ def stats():
 
     # Print number of documents with method=GET and path=/status
     print(f"{collection.count_documents({'method': 'GET', 'path': '/status'})} \
-status check")
+        status check")
 
 
 if __name__ == "__main__":
