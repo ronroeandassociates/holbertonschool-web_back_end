@@ -6,8 +6,6 @@ from pymongo import MongoClient
 def stats():
     """
     Count documents in collection with:
-    - Database: logs
-    - Collection: nginx
     Print:
     - Total number of documents in given collection
     """
