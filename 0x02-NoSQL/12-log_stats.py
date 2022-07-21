@@ -10,8 +10,6 @@ def stats():
     - Collection: nginx
     Print:
     - Total number of documents in given collection
-    - Number of documents with method ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    - Number of documents with method=GET and path=/status
     """
     # Connect to MongoDB
     client = MongoClient()
