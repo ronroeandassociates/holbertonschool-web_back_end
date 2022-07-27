@@ -1,4 +1,5 @@
-// display the message Welcome to Holberton School, what is your name?
+// display the message Welcome to Holberton School,
+// what is your name?
 // user should be able to input their name on a new lin
 // display the message Hello <name>, nice to meet you!
 
