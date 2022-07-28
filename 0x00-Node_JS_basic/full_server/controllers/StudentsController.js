@@ -3,7 +3,7 @@
 import readDatabase from '../utils';
 
 class StudentsController {
-  //first create a static method named getStudents
+  // first create a static method named getStudents
   static getStudents(_req, res) {
     res.status(200);
     readDatabase('process.argv[2]')
