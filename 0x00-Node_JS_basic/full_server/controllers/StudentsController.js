@@ -9,6 +9,7 @@ class StudentsController {
     readDatabase('process.argv[2]')
       .then((data) => {
         res.write('This is the list of our students\n');
+
         const fields = Object.keys(data);
 
         for (let i = 0; i < fields.length; i += 1) {
@@ -30,7 +31,7 @@ class StudentsController {
       .finally(() => {
         res.end();
       });
-  }}
+  }
 
   static getAllStudentsByMajor(req, res) {
     res.status(200);
