@@ -45,7 +45,7 @@ app.get('/students', async (_req, res) => {
     .finally(() => {
       res.end();
     });
-})
+});
 app.listen(port);
 
 module.exports = app;
