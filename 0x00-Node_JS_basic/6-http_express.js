@@ -7,6 +7,6 @@ const port = 1245;
 const app = express();
 
 app.get('/', (_req, res) => res.send('Hello Holberton School!'))
-.listen(port);
+  .listen(port);
 
 module.exports = app;
