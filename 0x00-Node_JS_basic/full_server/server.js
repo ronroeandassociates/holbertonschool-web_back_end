@@ -8,10 +8,9 @@ import express from 'express';
 const routes = require('./routes/index');
 
 const app = express();
-const port = 1245;
 
 app.use(routes);
 
-app.listen(port);
+app.listen(1245);
 
 export default app;

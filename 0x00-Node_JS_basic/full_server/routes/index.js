@@ -7,10 +7,10 @@ import StudentsController from '../controllers/StudentsController';
 
 const express = require('express');
 
-const route = express.Route();
+const router = express.Router();
 
-route.get('/students/:major', StudentsController.getAllStudentsByMajor);
-route.get('/', AppController.getHomepage);
-route.get('/students', StudentsController.getStudents);
+router.get('/students/:major', StudentsController.getAllStudentsByMajor);
+router.get('/', AppController.getHomepage);
+router.get('/students', StudentsController.getStudents);
 
-module.exports = route;
+module.exports = router;
