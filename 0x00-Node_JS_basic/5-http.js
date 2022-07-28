@@ -53,6 +53,6 @@ const app = http
           res.end();
         });
     }
-}).listen(port);
+  }).listen(port);
 
 module.exports = app;
