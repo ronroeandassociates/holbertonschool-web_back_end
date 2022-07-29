@@ -4,6 +4,10 @@ import readDatabase from '../utils';
 
 class StudentsController {
   // first create a static method named getStudents
+  // that takes a request and a response as parameters
+  // and returns a list of students
+  // then create a static method named getAllStudentsByMajor
+
   static getStudents(_req, res) {
     res.status(200);
     readDatabase('process.argv[2]')
