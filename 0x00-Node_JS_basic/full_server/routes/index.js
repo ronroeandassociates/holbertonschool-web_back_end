@@ -9,8 +9,8 @@ const express = require('express');
 
 const router = express.Router();
 
-router.get('/students/:major', StudentsController.getAllStudentsByMajor);
 router.get('/', AppController.getHomepage);
 router.get('/students', StudentsController.getStudents);
+router.get('/students/:major', StudentsController.getAllStudentsByMajor);
 
 module.exports = router;
