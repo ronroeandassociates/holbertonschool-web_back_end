@@ -8,9 +8,9 @@ class StudentsController {
   // and returns a list of students
   // then create a static method named getAllStudentsByMajor
 
-  static getStudents(_req, res) {
+  static getAllStudents(_req, res) {
     res.status(200);
-    readDatabase('process.argv[2]')
+    readDatabase(process.argv[2])
       .then((data) => {
         res.write('This is the list of our students\n');
 
