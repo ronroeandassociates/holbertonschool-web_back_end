@@ -10,7 +10,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/students/:major', StudentsController.getAllStudentsByMajor);
+router.get('/students', StudentsController.getAllStudents);
 router.get('/', AppController.getHomepage);
-router.get('/students', StudentsController.getStudents);
 
 module.exports = router;
