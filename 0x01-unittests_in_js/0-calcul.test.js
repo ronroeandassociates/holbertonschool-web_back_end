@@ -3,7 +3,7 @@
 // Tests should be around the “rounded” part
 
 const assert = require('assert');
-const calculateNumber = require('./0-calcul');
+const calculateNumber = require('./0-calcul').default;
 
 describe ('Test suite', () => {
   // Tests for calculateNumber function using Node.js assert
