@@ -22,6 +22,8 @@ describe ('Test suite', () => {
     assert.equal(calculateNumber('SUM', 0, -1), -1);
     assert.equal(calculateNumber('SUM', -1, 0), -1);
     assert.equal(calculateNumber('SUM', -8, 1), -7);
+  });
+  it('Test that calculateNumber subtracts two rounded numbers', () => {
     assert.equal(calculateNumber('SUBTRACT', 1, 2), -1);
     assert.equal(calculateNumber('SUBTRACT', 1.1, 2.1), -1);
     assert.equal(calculateNumber('SUBTRACT', 1.4, 2.4), -1);
@@ -29,6 +31,8 @@ describe ('Test suite', () => {
     assert.equal(calculateNumber('SUBTRACT', 1.5, .5), 1);
     assert.equal(calculateNumber('SUBTRACT', 2, 0), 2);
     assert.equal(calculateNumber('SUBTRACT', -7, 2.1), -9);
+  });
+  it('Test that calculateNumber divides two rounded numbers', () => {
     assert.equal(calculateNumber('DIVIDE', -10.9, -3.6), 3);
     assert.equal(calculateNumber('DIVIDE', 8, 4), 2);
     assert.equal(calculateNumber('DIVIDE', 0, 0), 'Error');
