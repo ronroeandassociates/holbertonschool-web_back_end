@@ -5,7 +5,7 @@ const { expect } = require('chai');
 
 describe('Test suite', () => {
   it('Test that sendPaymentRequestToAPI sums two rounded numbers', () => {
-    const spy = sinon.spy(Utils, 'calculateNumber');
+    const spy = sinon.stub(Utils, 'calculateNumber');
     sendPaymentRequestToAPI(1, 2);
     expect(spy.calledOnce).to.be.true;
     expect(spy.calledWith('SUM', 1, 2)).to.be.true;
