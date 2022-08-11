@@ -1,32 +1,30 @@
-// set hash field value
-
-const redis = require('redis');
-const client = redis.createClient();
+// Use the redis client to store a hash value, then retrieve all as object
+import { createClient, print } from 'redis';
+const client = createClient();
 
 client
-	.on('connect', () => {
-		console.log('Redis client connected to the server');
-	})
-	.on('error', (err) => {
-		console.log(`Redis client not connected to the server: ${err}`);
-	});
-
-  client.hset("HolbertonSchools",'Portland', '50', redis.print);
-  client.hset("HolbertonSchools",'Seattle', '80', redis.print);
-  client.hset("HolbertonSchools", 'New York', '20', redis.print);
-  client.hset("HolbertonSchools", 'Bogota', '20', redis.print);
-  client.hset("HolbertonSchools", 'Cali', '40', redis.print);
-  client.hset("HolbertonSchools",'Paris', '2', redis.print);
-  client.hset("HolbertonSchools",'Oklahoma', '75', redis.print); // add a new field for testing
-
-
-function getCache() {
-  client.hgetall("HolbertonSchools", (err, obj) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log(obj);
+  .on('connect', () => {
+    console.log('Redis client connected to the server');
   })
+  .on('error', (err) => {
+    console.error(`Redis client not connected to the server: ${err}`);
+  });
+
+const updateCache = (key, value) => {
+  client.hSet('cache', key, value, print);
 }
 
+const getCache = () => {
+  client.hGetAll('cache', (err, obj) => {
+    if (err) throw err;
+    console.log(obj);
+  });
+}
+
+updateCache('Portland', '50');
+updateCache('Seattle', '80');
+updateCache('New York', '20');
+updateCache('Bogota', '20');
+updateCache('Cali', '40');
+updateCache('Paris', '2');
 getCache();
