@@ -44,7 +44,7 @@ class FIFOCache(BaseCaching):
         if len(self.cache_data) == self.MAX_ITEMS and key not in self.__keys:
             discard = self.__keys.pop(0)
             del self.cache_data[discard]
-            print('DISCARD: {}'.format(discard))
+            print(f'DISCARD: {discard}')
         if key and item:
             self.__keys.append(key)
             self.cache_data[key] = item
@@ -54,6 +54,4 @@ class FIFOCache(BaseCaching):
         Args:
             key ([type]): key to search into cache_data
         """
-        if not key or key not in self.cache_data:
-            return None
-        return self.cache_data[key]
+        return None if not key or key not in self.cache_data else self.cache_data[key]

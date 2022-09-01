@@ -41,7 +41,7 @@ class MRUCache(BaseCaching):
         if len(self.cache_data) == self.MAX_ITEMS and key not in self.__keys:
             discard = self.__keys.pop()
             del self.cache_data[discard]
-            print('DISCARD: {}'.format(discard))
+            print(f'DISCARD: {discard}')
         if key and item:
             if key not in self.__keys:
                 self.__keys.append(key)
