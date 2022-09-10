@@ -40,12 +40,11 @@ class GithubOrgClient:
     def public_repos(self, license: str = None) -> List[str]:
         """Public repos"""
         json_payload = self.repos_payload
-        public_repos = [
-            repo["name"] for repo in json_payload
+        return [
+            repo["name"]
+            for repo in json_payload
             if license is None or self.has_license(repo, license)
         ]
-
-        return public_repos
 
     @staticmethod
     def has_license(repo: Dict[str, Dict], license_key: str) -> bool:

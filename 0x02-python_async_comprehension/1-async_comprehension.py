@@ -21,5 +21,4 @@ async def async_comprehension() -> List[float]:
     then yield a random number between 0 and 10
     Use the random module to generate a random number between 0 and 10
     """
-    numbers = [i async for i in async_generator()]
-    return numbers
+    return [i async for i in async_generator()]

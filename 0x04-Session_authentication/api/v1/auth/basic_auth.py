@@ -14,10 +14,12 @@ class BasicAuth(Auth):
     def extract_base64_authorization_header(self,
                                             authorization_header: str) -> str:
         """Extracts base64 authorization header"""
-        if authorization_header is not None:
-            if type(authorization_header) is str:
-                if authorization_header.startswith('Basic '):
-                    return authorization_header[6:]
+        if (
+            authorization_header is not None
+            and type(authorization_header) is str
+            and authorization_header.startswith('Basic ')
+        ):
+            return authorization_header[6:]
 
         return None
 
@@ -35,10 +37,12 @@ class BasicAuth(Auth):
                                  decoded_base64_authorization_header:
                                  str) -> Tuple[str, str]:
         """Extracts the users email and password from header"""
-        if decoded_base64_authorization_header is not None:
-            if type(decoded_base64_authorization_header) is str:
-                if ':' in decoded_base64_authorization_header:
-                    return decoded_base64_authorization_header.split(':')
+        if (
+            decoded_base64_authorization_header is not None
+            and type(decoded_base64_authorization_header) is str
+            and ':' in decoded_base64_authorization_header
+        ):
+            return decoded_base64_authorization_header.split(':')
 
         return None, None
 

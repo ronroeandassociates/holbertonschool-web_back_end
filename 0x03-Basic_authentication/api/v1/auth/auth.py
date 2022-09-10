@@ -14,10 +14,7 @@ class Auth():
         if path is None or excluded_paths is None:
             return True
 
-        if path in excluded_paths or f"{path}/" in excluded_paths:
-            return False
-
-        return True
+        return path not in excluded_paths and f"{path}/" not in excluded_paths
 
     def authorization_header(self, request=None) -> str:
         """Returns flask request or none if no header"""

@@ -11,8 +11,8 @@ from functools import wraps
 def call_history(method: Callable) -> Callable:
     """ store the history of inputs and outputs for a particular function """
     key = method.__qualname__
-    inputs = key + ":inputs"
-    outputs = key + ":outputs"
+    inputs = f"{key}:inputs"
+    outputs = f"{key}:outputs"
 
     @wraps(method)
     def wrapper(self, *args, **kwds):
@@ -21,6 +21,7 @@ def call_history(method: Callable) -> Callable:
         data = method(self, *args, **kwds)
         self._redis.rpush(outputs, str(data))
         return data
+
     return wrapper
 
 
@@ -59,9 +60,7 @@ class Cache:
             fn. This callable will be used to convert the data back to the
             desired format """
         data = self._redis.get(key)
-        if fn:
-            return fn(data)
-        return data
+        return fn(data) if fn else data
 
     def get_str(self, key: str) -> str:
         """ automatically parametrize Cache.get to str """
@@ -81,14 +80,14 @@ class Cache:
 def replay(method: Callable):
     """ display the history of calls of a particular function """
     key = method.__qualname__
-    inputs = key + ":inputs"
-    outputs = key + ":outputs"
+    inputs = f"{key}:inputs"
+    outputs = f"{key}:outputs"
     redis = method.__self__._redis
     count = redis.get(key).decode("utf-8")
-    print("{} was called {} times:".format(key, count))
+    print(f"{key} was called {count} times:")
     inputList = redis.lrange(inputs, 0, -1)
     outputList = redis.lrange(outputs, 0, -1)
     redis_zipped = list(zip(inputList, outputList))
     for a, b in redis_zipped:
         attr, data = a.decode("utf-8"), b.decode("utf-8")
-        print("{}(*{}) -> {}".format(key, attr, data))
+        print(f"{key}(*{attr}) -> {data}")

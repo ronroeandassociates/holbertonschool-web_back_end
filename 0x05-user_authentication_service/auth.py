@@ -24,8 +24,7 @@ class Auth:
             raise ValueError(f"User {email} already exists")
         except NoResultFound:
             hashed_password = _hash_password(password)
-            user = self._db.add_user(email, hashed_password)
-            return user
+            return self._db.add_user(email, hashed_password)
 
     def valid_login(self, email: str, password: str) -> bool:
         """Validate a user login"""
@@ -50,8 +49,7 @@ class Auth:
     def get_user_from_session_id(self, session_id: str) -> User:
         """Get a user from a session ID"""
         try:
-            user = self._db.find_user_by(session_id=session_id)
-            return user
+            return self._db.find_user_by(session_id=session_id)
         except Exception:
             return None
 

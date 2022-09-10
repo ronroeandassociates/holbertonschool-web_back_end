@@ -45,7 +45,7 @@ def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
     """Task 0"""
     for field in fields:
-        pattern = "(?<={}=).+?(?={})".format(field, separator)
+        pattern = f"(?<={field}=).+?(?={separator})"
         message = re.sub(pattern, redaction, message)
     return message
 
@@ -83,17 +83,12 @@ if __name__ == '__main__':
         db_cursor = db_connector.cursor()
         query = ("SELECT * FROM users")
         db_cursor.execute(query)
-        fields = []
-
-        for item in db_cursor.description:
-            fields.append(str(item[0]))
+        fields = [str(item[0]) for item in db_cursor.description]
 
         for result in db_cursor:
             string = ''
-            field_pos = 0
-            for item in result:
+            for field_pos, item in enumerate(result):
                 string = string + fields[field_pos] + '=' + str(item) + '; '
-                field_pos += 1
             logger = get_logger()
             logger.info(string)
     main()

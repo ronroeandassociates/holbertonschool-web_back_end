@@ -68,8 +68,7 @@ def get_timezone():
             return timezone
         except UnknownTimeZoneError:
             pass
-    user = g.user
-    if user:
+    if user := g.user:
         try:
             timezone(timezone)
             return user['timezone']
