@@ -1,4 +1,4 @@
-!0x05-user_authentication_service_banner](https://github.com/ronroeandassociates/assets/blob/master/0x05-user_authentication_service_banner.png)
+![0x05-user_authentication_service_banner](https://github.com/ronroeandassociates/assets/blob/master/0x05-user_authentication_service_banner.png)
 
 # 0x05. User authentication service
 
